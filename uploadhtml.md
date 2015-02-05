@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Example - example-input-directive-production</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-base64-upload.js"></script>
+  </head>
+  <body ng-app="inputExample">
+    <script>
+      angular.module('inputExample', ['naif.base64'])
+      .controller('ExampleController', ['$scope', function($scope) {
+        $scope.user = {};
+        $scope.image = {};
+
+        $scope.uploadme = {};
+        $scope.uploadme.src = "";
+        $scope.abc = function (){
+          $scope.user.image = "data:"+ $scope.image.filetype+";base64,"+$scope.image.base64;
+          console.log($scope.user)
+        }
+        
+      }]);
+    </script>
+    <div ng-controller="ExampleController">
+      <form name="myForm" >
+        name: <input type="text" ng-model="user.name"><br>
+        category: <input type="text"  ng-model="user.category"><br>
+        numbers: <input type="number" ng-model="user.numbers"><br>
+        productName: <input type="text" ng-model="user.productName"><br>
+        productIntroduction: <input type="text" ng-model="user.productIntroduction"><br>
+        productDetail: <input type="text" ng-model="user.productDetail"><br>
+        timeLimit: <input type="text"  ng-model="user.timeLimit"><br></form>
+      image: {{image}}
+
+        <br>
+      button: <button ng-click = "abc()" type="button">Click Me!</button>
+ 
+      image: <input type='file' ng-model='image' base-sixty-four-input>
+      <hr>
+      <tt>{{user}}</tt><br/>
+    </div>
+  </body>
+
+</html>
