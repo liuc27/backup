@@ -32,6 +32,7 @@
 
 
     </form>
+    <button ng-click="sendJson()">sendJson</button>
     <hr>
     <tt id="jsonDiv">{{user}}</tt>
     <br/>
@@ -41,19 +42,24 @@
 <script src="js/angular-base64-upload.js"></script>
 <script>
   angular.module('inputExample', ['naif.base64'])
-    .controller('ExampleController', ['$scope',
-      function ($scope) {
-        $scope.user = {};
-        $scope.image = {};
+    .controller('ExampleController', function ($scope, $http) {
+      $scope.user = {};
+      $scope.image = {};
 
-        $scope.uploadme = {};
-        $scope.uploadme.src = "";
-        $scope.abc = function () {
-          $scope.user.image = "data:" + $scope.image.filetype + ";base64," + $scope.image.base64;
-          console.log($scope.user)
-        }
+      $scope.uploadme = {};
+      $scope.uploadme.src = "";
+      $scope.abc = function () {
+        $scope.user.image = "data:" + $scope.image.filetype + ";base64," + $scope.image.base64;
+        console.log($scope.user)
+      }
 
-    }]);
+      $scope.sendJson = function () {
+        $http.post("http://www.hahadz.com:3000/api/posts", $scope.user).success(function (data) {
+          console.log(data)
+          alert("successfully pushed")
+        })
+      }
+    });
 </script>
 
 </html>
